@@ -5,7 +5,7 @@ negative = [":(",":/","</3","😞","😔","😟","😕","🙁","☹️","😣","
 
 c = twint.Config()
 c.Lang = "tr"
-c.Limit = 10
+c.Limit = 1000
 c.Store_csv = True
 c.Custom["tweet"] = ["tweet"]
 c.Hide_output = True
@@ -20,7 +20,7 @@ for p in pozitive:
 
 count = 1
 for n in negative:
-    print(p)
+    print(n)
     c.Output = "n" + str(count) +".txt"
     c.Search = n
     twint.run.Search(c)
