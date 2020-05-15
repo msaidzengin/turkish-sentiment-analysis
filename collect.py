@@ -24,3 +24,4 @@ for n in negative:
     c.Output = "n" + str(count) +".txt"
     c.Search = n
     twint.run.Search(c)
+    count += 1
