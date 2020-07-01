@@ -1,4 +1,3 @@
-import Levenshtein as lev
 from strsimpy.levenshtein import Levenshtein
 from strsimpy.normalized_levenshtein import NormalizedLevenshtein
 from strsimpy.damerau import Damerau
@@ -46,4 +45,3 @@ levenshtein = Levenshtein()
 print(levenshtein.distance('My string', 'My $string'))
 print(levenshtein.distance('My string', 'My $string'))
 print(levenshtein.distance('My string', 'My $string'))
-print(lev.distance('Normalized Levenshtein', 'Weighted Levenshtein'))
