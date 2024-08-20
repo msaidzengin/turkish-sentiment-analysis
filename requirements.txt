@@ -1,4 +1,4 @@
-nltk == 3.6.7
+nltk == 3.9
 twint == 2.1.20
 strsimpy == 0.1.6
 TurkishStemmer == 1.3
