@@ -1,27 +1,75 @@
-import twint
+"""Historical tweet collection notes.
 
-pozitive = [":)","<3","😀","😃","😄","😁","😆","😅","😂","🤣","☺️","😊","😇","🙂","🙃","😍","🤓","😎","👏","👍","🙏","❤️"]
-negative = [":(","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","😢","😭","😤","😠","😡","😥","😓","🤒"]
+The original collector used twint to search Twitter for positive and
+negative emoji queries and wrote dumps into new/. Twint is unmaintained
+and no longer works against X/Twitter, so this script does not collect
+new data.
 
-c = twint.Config()
-c.Lang = "tr"
-c.Limit = 100
-c.Store_csv = True
-c.Custom["tweet"] = ["tweet"]
-c.Hide_output = True
+The dumps that were already collected remain in new/ and are enough to
+rebuild the lexicon with:
 
-count = 1
-for p in pozitive:
-    print(p)
-    c.Output = "new/p" + str(count) +".txt"
-    c.Search = p
-    twint.run.Search(c)
-    count += 1
+    python prepare_data.py
+"""
 
-count = 1
-for n in negative:
-    print(n)
-    c.Output = "new/n" + str(count) +".txt"
-    c.Search = n
-    twint.run.Search(c)
-    count += 1
+from __future__ import annotations
+
+POSITIVE_EMOJIS = [
+    ":)",
+    "<3",
+    "😀",
+    "😃",
+    "😄",
+    "😁",
+    "😆",
+    "😅",
+    "😂",
+    "🤣",
+    "☺️",
+    "😊",
+    "😇",
+    "🙂",
+    "🙃",
+    "😍",
+    "🤓",
+    "😎",
+    "👏",
+    "👍",
+    "🙏",
+    "❤️",
+]
+
+NEGATIVE_EMOJIS = [
+    ":(",
+    "😞",
+    "😔",
+    "😟",
+    "😕",
+    "🙁",
+    "☹️",
+    "😣",
+    "😖",
+    "😫",
+    "😩",
+    "😢",
+    "😭",
+    "😤",
+    "😠",
+    "😡",
+    "😥",
+    "😓",
+    "🤒",
+]
+
+
+def main() -> int:
+    print(
+        "Tweet collection via twint is retired.\n"
+        "Existing dumps are in new/. Rebuild counts with: python prepare_data.py"
+    )
+    print(f"positive emoji queries: {len(POSITIVE_EMOJIS)}")
+    print(f"negative emoji queries: {len(NEGATIVE_EMOJIS)}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
