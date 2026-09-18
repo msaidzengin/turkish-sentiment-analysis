@@ -50,7 +50,7 @@ matched: güzel(+0.71), bayıl(+0.64)
 1. Normalize the text (lowercase, strip URLs, mentions, punctuation).
 2. Tokenize with NLTK's Turkish model and drop stopwords.
 3. Stem tokens with TurkishStemmer.
-4. Look each token up in `dataset/all_words.txt`.
+4. Look each token up in `data/lexicon/word-counts.txt`.
 5. Word polarity is `(positive_count - negative_count) / total`.
 6. The sentence score is the mean polarity of matched tokens.
 7. Labels: `positive` (>= 0.15), `negative` (<= -0.15), otherwise `neutral`.
@@ -62,19 +62,14 @@ the lexicon. That filters out function words and emoji-noise tokens.
 
 | Path | What it is |
 | --- | --- |
-| `new/` | Historical tweet dumps, split by emoji query |
-| `dataset/all_words.txt` | `word positive_count negative_count` |
-| `dataset/positive_words.txt` | Positive-side word counts |
-| `dataset/negative_words.txt` | Negative-side word counts |
-| `dataset/*_stemmed.txt` | Stemmed count tables |
-| `dataset/*_sentences.txt` | Cleaned and stemmed tweet sentences |
-| `dataset/tweets.zip` | Archived raw tweet dump |
+| `data/sentences/positive.txt` | Cleaned tweets labeled with positive emoji |
+| `data/sentences/negative.txt` | Cleaned tweets labeled with negative emoji |
+| `data/lexicon/word-counts.txt` | `word positive_count negative_count` |
 
-Rebuild counts after adding files under `new/`:
+Rebuild the lexicon after editing the sentence files:
 
 ```bash
 python prepare_data.py
-python prepare_data.py --stem
 ```
 
 `collect.py` only documents the original emoji queries. The old Twitter
