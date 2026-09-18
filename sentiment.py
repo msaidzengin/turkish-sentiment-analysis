@@ -2,7 +2,7 @@
 
 The polarity lexicon is built from emoji-labeled tweets: each word's score
 is (positive_count - negative_count) / (positive_count + negative_count)
-using the frequencies in dataset/all_words.txt.
+using the frequencies in data/lexicon/word-counts.txt.
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from TurkishStemmer import TurkishStemmer
 from preprocess import preprocess
 
 ROOT = Path(__file__).resolve().parent
-ALL_WORDS = ROOT / "dataset" / "all_words.txt"
+ALL_WORDS = ROOT / "data" / "lexicon" / "word-counts.txt"
 
 MIN_TOTAL = 25
 MIN_ABS_SCORE = 0.30
