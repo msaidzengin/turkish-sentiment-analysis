@@ -14,6 +14,8 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
+On Windows, activate with `.venv\Scripts\activate` instead of `source`.
+
 The first run downloads NLTK `punkt`, `punkt_tab`, and Turkish stopwords.
 
 ## Usage
@@ -32,6 +34,47 @@ label:   positive
 score:   +0.420
 tokens:  film güzel bayıl
 matched: güzel(+0.42), bayıl(+0.42)
+```
+
+Read sentences from stdin, one per line:
+
+```bash
+printf '%s\n' "berbat bir gündü her şey çok kötüydü" "masa kalem defter" | python sentiment.py
+```
+
+```
+text:    berbat bir gündü her şey çok kötüydü
+label:   negative
+score:   -0.405
+tokens:  berbat günt kötü
+matched: kötü(-0.41)
+
+text:    masa kalem defter
+label:   neutral
+score:   +0.000
+tokens:  masa kalem defter
+matched: —
+```
+
+Skip stemming. The same positive sentence no longer matches the lexicon:
+
+```bash
+python sentiment.py --no-stem "bu film çok güzeldi bayıldım"
+```
+
+```
+text:    bu film çok güzeldi bayıldım
+label:   neutral
+score:   +0.000
+tokens:  film güzeldi bayıldım
+matched: —
+```
+
+With no arguments, the script scores three built-in sentences: the positive example above, the negative example, and `masa kalem defter`.
+
+```bash
+python sentiment.py
+python sentiment.py --help
 ```
 
 ## How scoring works
@@ -55,10 +98,30 @@ the lexicon. That filters out function words and emoji-noise tokens.
 | `data/sentences/negative.txt` | Cleaned tweets labeled with negative emoji |
 | `data/lexicon/word-counts.txt` | `word positive_count negative_count` |
 
-Rebuild the lexicon after editing the sentence files:
+Rebuild the lexicon only after editing the sentence files. This overwrites `data/lexicon/word-counts.txt`. The examples above use the lexicon already in the repository. `--stem` counts stems instead of surface forms.
 
 ```bash
 python prepare_data.py
+```
+
+```
+positive sentences: 266743
+negative sentences: 230245
+lexicon words:      374240
+wrote data/lexicon/word-counts.txt
+```
+
+`collect.py` does not download tweets. The old collector used twint, which no longer works.
+
+```bash
+python collect.py
+```
+
+```
+Tweet collection via twint is retired.
+Cleaned sentences are in data/sentences/. Rebuild counts with: python prepare_data.py
+positive emoji queries: 22
+negative emoji queries: 19
 ```
 
 ## Tests
