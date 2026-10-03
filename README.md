@@ -1,48 +1,37 @@
 # Turkish Sentiment Analysis
 
-Lexicon-based sentiment scoring for Turkish text. The word polarities come
-from tweets that were weakly labeled with positive or negative emoji.
+Lexicon-based sentiment scoring for Turkish text, using word polarities from emoji-labeled tweets.
 
 ## Install
 
 Requires Python 3.10 or newer. `nltk` 3.10.3 does not install on older Pythons.
 
 ```bash
-python3 -m pip install -r requirements.txt
+git clone https://github.com/msaidzengin/turkish-sentiment-analysis.git
+cd turkish-sentiment-analysis
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 ```
 
 The first run downloads NLTK `punkt`, `punkt_tab`, and Turkish stopwords.
 
 ## Usage
 
-Score a sentence:
+From the repository root, with the virtual environment active:
 
 ```bash
 python sentiment.py "bu film çok güzeldi bayıldım"
 ```
-
-Read from stdin:
-
-```bash
-echo "berbat bir gündü" | python sentiment.py
-```
-
-Skip stemming:
-
-```bash
-python sentiment.py --no-stem "mutluyum"
-```
-
-Run without arguments to see a few built-in examples.
 
 Example output:
 
 ```
 text:    bu film çok güzeldi bayıldım
 label:   positive
-score:   +0.512
+score:   +0.420
 tokens:  film güzel bayıl
-matched: güzel(+0.71), bayıl(+0.64)
+matched: güzel(+0.42), bayıl(+0.42)
 ```
 
 ## How scoring works
@@ -71,9 +60,6 @@ Rebuild the lexicon after editing the sentence files:
 ```bash
 python prepare_data.py
 ```
-
-`collect.py` only documents the original emoji queries. The old Twitter
-collector used twint, which is unmaintained and no longer works.
 
 ## Tests
 
